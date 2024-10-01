@@ -1,0 +1,36 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Products</h1>
+  <mat-grid-list cols="6" rowHeight="130px" gutterSize="5px">
+    <mat-grid-tile [colspan]="2" [rowspan]="5">
+      <app-product-type-chart></app-product-type-chart>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <app-dashboard-stat-card
+        label="Total Stock Value"
+        [data]="totalStockValue | currency"
+      ></app-dashboard-stat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <app-dashboard-stat-card
+        label="Total Stock Count"
+        [data]="totalStock"
+      ></app-dashboard-stat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <app-dashboard-stat-card
+        label="Unstocked Products"
+        data="0"
+      ></app-dashboard-stat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <app-dashboard-stat-card
+        label="Average Stock value"
+        [data]="averageValue | currency"
+      ></app-dashboard-stat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="4" [rowspan]="4">
+      <app-product-stock-chart></app-product-stock-chart>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<app-product-list></app-product-list>

@@ -1,0 +1,181 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isEditMode ? "Edit" : "Add" }} Product</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-row">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="3"
+          cdkAutosizeMaxRows="7"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+
+      <div class="form-row">
+        <mat-form-field>
+          <mat-label>Value</mat-label>
+          <input matInput type="number" formControlName="value" />
+          <span matTextPrefix>$&nbsp;</span>
+          @if (productForm.controls['value'].invalid) {
+          <mat-error>
+            @if (productForm.controls['value'].errors?.['min']) { Minimum value
+            0 }
+          </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Stock</mat-label>
+          <input matInput type="number" formControlName="stock" />
+          @if (productForm.controls['stock'].invalid) {
+          <mat-error>
+            @if (productForm.controls['stock'].errors?.['min']) { Minimum value
+            0 }
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>SKU</mat-label>
+          <input matInput formControlName="sku" />
+          @if (productForm.controls['stock'].invalid) {
+          <mat-error> Invalid SKU value </mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field>
+          <mat-label>Brand</mat-label>
+          <input matInput formControlName="brand" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Color</mat-label>
+          <input matInput formControlName="color" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field>
+          <mat-label>Size</mat-label>
+          <mat-select formControlName="size">
+            <mat-option *ngFor="let size of sizes" [value]="size">
+              {{ size }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Weight</mat-label>
+          <input matInput type="number" formControlName="weight" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Weight Unit</mat-label>
+          <mat-select formControlName="weightUnit">
+            <mat-option value="kg">kg</mat-option>
+            <mat-option value="lb">lb</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div formGroupName="dimensions">
+        <h4>Dimensions</h4>
+        <div class="form-row">
+          <mat-form-field>
+            <mat-label>Length</mat-label>
+            <input matInput type="number" formControlName="length" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Width</mat-label>
+            <input matInput type="number" formControlName="width" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Height</mat-label>
+            <input matInput type="number" formControlName="height" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Unit</mat-label>
+            <mat-select formControlName="unit">
+              <mat-option value="cm">cm</mat-option>
+              <mat-option value="inch">inch</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-form-field class="full-width">
+        <mat-label>Tags</mat-label>
+        <mat-chip-grid #chipGrid>
+          <mat-chip-row *ngFor="let tag of tags" (removed)="removeTag(tag)">
+            {{ tag }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        </mat-chip-grid>
+        <input
+          placeholder="New tag..."
+          [matChipInputFor]="chipGrid"
+          (matChipInputTokenEnd)="addTag($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Condition</mat-label>
+        <mat-select formControlName="condition">
+          <mat-option *ngFor="let condition of conditions" [value]="condition">
+            {{ condition }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Warranty Period (months)</mat-label>
+        <input matInput type="number" formControlName="warrantyPeriod" />
+      </mat-form-field>
+
+      <mat-slide-toggle formControlName="isAvailable"
+        >Available</mat-slide-toggle
+      >
+    </mat-card-content>
+    <mat-card-actions>
+      <a [routerLink]="['/products']" mat-raised-button>Close</a>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="!productForm.valid"
+      >
+        Save
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

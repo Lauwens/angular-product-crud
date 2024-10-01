@@ -1,0 +1,21 @@
+<div class="dashboard-card">
+  <mat-card>
+    <mat-card-content class="dashboard-card-content">
+      <div class="charts-container">
+        <div class="chart">
+          <h2>Product Categories</h2>
+          @if (typeChartOptions) {
+          <apx-chart
+            [series]="typeChartOptions.series"
+            [chart]="typeChartOptions.chart"
+            [plotOptions]="typeChartOptions.plotOptions"
+            [labels]="typeChartOptions.labels"
+            [legend]="typeChartOptions.legend"
+            [responsive]="typeChartOptions.responsive"
+          ></apx-chart>
+          }
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

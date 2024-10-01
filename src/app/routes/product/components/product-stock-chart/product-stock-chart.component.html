@@ -1,0 +1,22 @@
+<div class="dashboard-card">
+  <mat-card>
+    <mat-card-content class="dashboard-card-content">
+      <div class="charts-container">
+        <div class="chart">
+          <h2>Product Stock Levels</h2>
+          @if (stockChartOptions) {
+          <apx-chart
+            [series]="stockChartOptions.series"
+            [chart]="stockChartOptions.chart"
+            [dataLabels]="stockChartOptions.dataLabels"
+            [plotOptions]="stockChartOptions.plotOptions"
+            [xaxis]="stockChartOptions.xaxis"
+            [yaxis]="stockChartOptions.yaxis"
+            [title]="stockChartOptions.title"
+          ></apx-chart>
+          }
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

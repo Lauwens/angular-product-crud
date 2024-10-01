@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Product } from '@product/models/product.model';
+import * as ProductActions from '@product/store/product.actions';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: 'app.component.html',
+  styleUrl: 'app.component.scss',
 })
 export class AppComponent {
-  title = 'products';
+  private store = inject(Store<{ products: Product[] }>);
+  constructor() {
+    this.store.dispatch(ProductActions.loadProducts());
+  }
 }
